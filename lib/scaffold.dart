@@ -33,49 +33,49 @@ class ScaffoldState extends State<ScaffoldOgesi> {
         break;
 
       case 4:
-        return LandingPage();
+        return ChangeNotifierProvider(
+          create: (context) => UserModel(),
+          child: LandingPage(),
+        );
         break;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => UserModel(),
-      child: new Scaffold(
-        body: gecerliSayfa(aktifOge),
-        bottomNavigationBar: BottomNavigationBar(
-            currentIndex: aktifOge,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                title: Text('Home'),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                title: Text('Search'),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.videocam),
-                title: Text('Cinema'),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.location_on),
-                title: Text('Location'),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                title: Text('Profile'),
-              ),
-            ],
-            selectedItemColor: Color.fromRGBO(101, 99, 250, 100),
-            unselectedItemColor: Color.fromRGBO(191, 191, 211, 100),
-            onTap: (int i) {
-              aktifOge = i;
-              setState(() {});
-            }),
-        drawer: new DrawerCodeOnly(),
-      ),
+    return new Scaffold(
+      body: gecerliSayfa(aktifOge),
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: aktifOge,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text('Home'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              title: Text('Search'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.videocam),
+              title: Text('Cinema'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.location_on),
+              title: Text('Location'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              title: Text('Profile'),
+            ),
+          ],
+          selectedItemColor: Color.fromRGBO(101, 99, 250, 100),
+          unselectedItemColor: Color.fromRGBO(191, 191, 211, 100),
+          onTap: (int i) {
+            aktifOge = i;
+            setState(() {});
+          }),
+      drawer: new DrawerCodeOnly(),
     );
   }
 }

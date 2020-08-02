@@ -110,10 +110,4 @@ class FirebaseAuthService implements AuthBase {
 
     return null;
   }
-
-  @override
-  Future<User> createUserWithEmailPassword(String email, String password) {}
-
-  @override
-  Future<User> signInWithEmailPassword(String email, String password) {}
 }

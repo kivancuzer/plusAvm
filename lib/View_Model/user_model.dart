@@ -10,6 +10,8 @@ class UserModel with ChangeNotifier implements AuthBase {
   ViewState _state = ViewState.Idle;
   UserRepository _userRepository = locator<UserRepository>();
   User _user;
+  String emailHataMesaji;
+  String sifreHataMesaji;
 
   User get user => _user;
 
@@ -85,36 +87,6 @@ class UserModel with ChangeNotifier implements AuthBase {
     try {
       state = ViewState.Busy;
       _user = await _userRepository.signInWithFacebook();
-      return _user;
-    } catch (e) {
-      debugPrint("ViewModeldeki current user hata:" + e.toString());
-      return null;
-    } finally {
-      state = ViewState.Idle;
-    }
-  }
-
-  @override
-  Future<User> createUserWithEmailPassword(
-      String email, String password) async {
-    try {
-      state = ViewState.Busy;
-      _user =
-          await _userRepository.createUserWithEmailPassword(email, password);
-      return _user;
-    } catch (e) {
-      debugPrint("ViewModeldeki current user hata:" + e.toString());
-      return null;
-    } finally {
-      state = ViewState.Idle;
-    }
-  }
-
-  @override
-  Future<User> signInWithEmailPassword(String email, String password) async {
-    try {
-      state = ViewState.Busy;
-      _user = await _userRepository.signInWithEmailPassword(email, password);
       return _user;
     } catch (e) {
       debugPrint("ViewModeldeki current user hata:" + e.toString());
