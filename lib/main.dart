@@ -19,6 +19,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  String kivanc;
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
