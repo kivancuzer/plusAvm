@@ -1,6 +1,5 @@
 import 'package:avmv005/Model/user_model.dart';
 import 'package:avmv005/View_Model/user_model.dart';
-import 'package:avmv005/email_password_sign_in.dart';
 import 'package:avmv005/main.dart';
 import 'package:avmv005/widgets/common_widget/social_login_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,12 +23,6 @@ class SignInPage extends StatelessWidget {
     final _userModel = Provider.of<UserModel>(context);
     User _user = await _userModel.signInWithFacebook();
     print("Oturum açan user id:");
-  }
-
-  void _emailVeSifreGiris(BuildContext context) {
-    Navigator.of(context)
-        .push(CupertinoPageRoute(builder: (context) => EmailPasswordSignIn()));
-    print("tıklandı");
   }
 
   @override
@@ -74,7 +67,7 @@ class SignInPage extends StatelessWidget {
                     onPressed: () => {_facebookIleGiris(context)},
                     buttonIcon: Image.asset("images/facebook-logo.png"),
                   ),
-                  SocialLoginButton(
+                  /* SocialLoginButton(
                     buttonColor: Colors.deepPurple,
                     buttonText: "Email ve Şifre ile Giriş Yap",
                     textColor: Colors.white,
@@ -85,7 +78,7 @@ class SignInPage extends StatelessWidget {
                       color: Colors.white,
                       size: 32,
                     ),
-                  ),
+                  ),*/
                   SocialLoginButton(
                     buttonColor: Colors.teal,
                     buttonText: "Cep telefonu ile Giriş Yap",

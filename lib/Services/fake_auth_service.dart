@@ -28,14 +28,4 @@ class FakeAuthenticationService implements AuthBase {
   Future<User> signInWithFacebook() {
     return null;
   }
-
-  @override
-  Future<User> createUserWithEmailPassword(String email, String password) {
-    return null;
-  }
-
-  @override
-  Future<User> signInWithEmailPassword(String email, String password) {
-    return null;
-  }
 }
