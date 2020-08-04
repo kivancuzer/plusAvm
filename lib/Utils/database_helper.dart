@@ -69,4 +69,17 @@ class DatabaseHelper {
     var result = await db.query(_favoritesTable, orderBy: "$_columnID DESC");
     return result;
   }
+
+  Future<int> deleteFavorite(String imageUrl) async {
+    var db = await _getDatabase();
+    var result = await db.delete(_favoritesTable,
+        where: "$_columnImageUrl = ? ", whereArgs: [imageUrl]);
+    return result;
+  }
+
+  Future<int> deleteAll() async {
+    var db = await _getDatabase();
+    var result = await db.delete(_favoritesTable);
+    return result;
+  }
 }

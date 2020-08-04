@@ -33,7 +33,7 @@ class Trends extends StatelessWidget {
                 return GridView.builder(
                   primary: false,
                   itemCount: snapshot.data.length,
-                  padding: const EdgeInsets.only(top:15.0,left:5.0),
+                  padding: const EdgeInsets.only(top: 15.0, left: 5.0),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 10.0,
