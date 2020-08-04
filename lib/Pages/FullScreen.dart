@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'CircularClipper.dart';
 
+enum ButtonType { AddFavorite, DeleteFavorite }
+
 class FullScreen extends StatefulWidget {
   //Full Screende hangi parametreleri göstermek istiyoruz
   final String imageUrl;
@@ -27,28 +29,39 @@ class FullScreen extends StatefulWidget {
 
 class _FullScreenState extends State<FullScreen> {
   DatabaseHelper dbh1 = DatabaseHelper();
+  var _buttonType = ButtonType.AddFavorite;
+  IconData iconData = Icons.bookmark_border;
   @override
   Widget build(BuildContext context) {
-    void _addFavorites() {
-      Favorites favorites = Favorites(
-          widget.imageUrl.toString(),
-          widget.avmName.toString(),
-          widget.brandName.toString(),
-          widget.info.toString(),
-          widget.stars.toString(),
-          widget.title.toString());
-
-      Map olusanMap = favorites.toMap();
-
-      print(olusanMap["avm_name"].toString());
-
-      dbh1.addFavorites(Favorites(
-          widget.imageUrl.toString(),
-          widget.avmName.toString(),
-          widget.brandName.toString(),
-          widget.info.toString(),
-          widget.stars.toString(),
-          widget.title.toString()));
+    void _changeButtonType() {
+      if (_buttonType == ButtonType.AddFavorite) {
+        try {
+          dbh1.addFavorites(Favorites(
+              widget.imageUrl.toString(),
+              widget.avmName.toString(),
+              widget.brandName.toString(),
+              widget.info.toString(),
+              widget.stars.toString(),
+              widget.title.toString()));
+          print("Kaydedildi.");
+          iconData = Icons.bookmark;
+        } catch (e) {
+          print("Kaydederken bir hata oluştu" + e.toString());
+        }
+      } else {
+        try {
+          dbh1.deleteFavorite(widget.imageUrl);
+          iconData = Icons.bookmark_border;
+          print("Silindi.");
+        } catch (e) {
+          print("Silme işlemi sırasında bir hata oluştu" + e.toString());
+        }
+      }
+      setState(() {
+        _buttonType = _buttonType == ButtonType.AddFavorite
+            ? ButtonType.DeleteFavorite
+            : ButtonType.AddFavorite;
+      });
     }
 
     return Scaffold(
@@ -101,8 +114,8 @@ class _FullScreenState extends State<FullScreen> {
                 bottom: 0.0,
                 left: 20.0,
                 child: IconButton(
-                  onPressed: () => {_addFavorites()},
-                  icon: Icon(Icons.bookmark_border),
+                  onPressed: () => {_changeButtonType()},
+                  icon: Icon(iconData),
                   iconSize: 40.0,
                   color: Colors.blueAccent,
                 ),

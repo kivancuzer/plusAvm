@@ -1,19 +1,17 @@
 import 'package:avmv005/Model/user_model.dart';
-import 'package:avmv005/Utils/database_helper.dart';
 import 'package:avmv005/View_Model/user_model.dart';
 import 'package:avmv005/main.dart';
+import 'package:avmv005/widgets/profileWidget.dart';
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   final User user;
-  DatabaseHelper dbh1 = DatabaseHelper();
 
   ProfilePage({Key key, @required this.user}) : super(key: key);
-  DatabaseHelper dbh2 = DatabaseHelper();
+
   @override
   Widget build(BuildContext context) {
-    dbdenVerileriGetir();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(80, 77, 229, 100),
@@ -40,15 +38,12 @@ class ProfilePage extends StatelessWidget {
       drawer: DrawerCodeOnly(),
       body: SafeArea(
         child: ListView(
-          children: <Widget>[],
+          children: <Widget>[
+            ProfileWidget(),
+          ],
         ),
       ),
     );
-  }
-
-  void dbdenVerileriGetir() async {
-    var result = await dbh2.allFavorites();
-    print(result.toString());
   }
 
   Future<bool> _cikisYap(BuildContext context) async {
