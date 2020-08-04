@@ -1,3 +1,5 @@
+import 'package:avmv005/Model/favorites.dart';
+import 'package:avmv005/Utils/database_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -24,8 +26,31 @@ class FullScreen extends StatefulWidget {
 }
 
 class _FullScreenState extends State<FullScreen> {
+  DatabaseHelper dbh1 = DatabaseHelper();
   @override
   Widget build(BuildContext context) {
+    void _addFavorites() {
+      Favorites favorites = Favorites(
+          widget.imageUrl.toString(),
+          widget.avmName.toString(),
+          widget.brandName.toString(),
+          widget.info.toString(),
+          widget.stars.toString(),
+          widget.title.toString());
+
+      Map olusanMap = favorites.toMap();
+
+      print(olusanMap["avm_name"].toString());
+
+      dbh1.addFavorites(Favorites(
+          widget.imageUrl.toString(),
+          widget.avmName.toString(),
+          widget.brandName.toString(),
+          widget.info.toString(),
+          widget.stars.toString(),
+          widget.title.toString()));
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
@@ -65,7 +90,7 @@ class _FullScreenState extends State<FullScreen> {
                   ),
                   IconButton(
                     padding: EdgeInsets.only(right: 30.0),
-                    onPressed: () => print('Favorilere Eklendi'),
+                    onPressed: () => print("kkk"),
                     icon: Icon(Icons.favorite_border),
                     iconSize: 30.0,
                     color: Colors.blueAccent,
@@ -76,7 +101,7 @@ class _FullScreenState extends State<FullScreen> {
                 bottom: 0.0,
                 left: 20.0,
                 child: IconButton(
-                  onPressed: () => print('Kaydedildi'),
+                  onPressed: () => {_addFavorites()},
                   icon: Icon(Icons.bookmark_border),
                   iconSize: 40.0,
                   color: Colors.blueAccent,
