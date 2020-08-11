@@ -1,5 +1,5 @@
-import 'package:avmv005/Pages/FullScreen.dart';
 import 'package:avmv005/Pages/See_All/discount_slides_see_all.dart';
+import 'package:avmv005/Pages/course_info_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -74,7 +74,7 @@ class DiscountPageSlide extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => FullScreen(
+                                    builder: (_) => CourseInfoScreen(
                                       imageUrl: snapshot
                                           .data[index].data["image"]
                                           .toString(),

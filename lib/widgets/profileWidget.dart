@@ -1,5 +1,5 @@
 import 'package:avmv005/Model/favorites.dart';
-import 'package:avmv005/Pages/FullScreen.dart';
+import 'package:avmv005/Pages/course_info_screen.dart';
 import 'package:avmv005/Utils/database_helper.dart';
 import "package:flutter/material.dart";
 
@@ -50,7 +50,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => FullScreen(
+                    builder: (_) => CourseInfoScreen(
                       imageUrl: allFavoritesList[index].imageUrl.toString(),
                       avmName: allFavoritesList[index].avmName.toString(),
                       brandName: allFavoritesList[index].brandName.toString(),

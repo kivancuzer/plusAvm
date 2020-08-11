@@ -1,4 +1,4 @@
-import 'package:avmv005/Pages/FullScreen.dart';
+import 'package:avmv005/Pages/course_info_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -32,7 +32,7 @@ class DiscountsSlidesSeelAllWidget extends StatelessWidget {
                 return GridView.builder(
                   primary: false,
                   itemCount: snapshot.data.length,
-                  padding: const EdgeInsets.only(top:15.0,left:5.0),
+                  padding: const EdgeInsets.only(top: 15.0, left: 5.0),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 10.0,
@@ -49,7 +49,7 @@ class DiscountsSlidesSeelAllWidget extends StatelessWidget {
                               onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => FullScreen(
+                                  builder: (_) => CourseInfoScreen(
                                     imageUrl: snapshot.data[index].data["image"]
                                         .toString(),
                                     avmName: snapshot

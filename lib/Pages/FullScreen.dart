@@ -81,12 +81,13 @@ class _FullScreenState extends State<FullScreen> {
                     //Resmin Altının Oval Olmasını Sağlıyor
                     clipper: CircularClipper(),
                     child: Image(
-                        height: 350.0,
-                        width: double.infinity,
-                        fit: BoxFit.fill,
-                        image: NetworkImage(
-                          widget.imageUrl,
-                        )),
+                      height: 350.0,
+                      width: double.infinity,
+                      fit: BoxFit.fill,
+                      image: NetworkImage(
+                        widget.imageUrl,
+                      ),
+                    ),
                   ),
                 ),
               ),
