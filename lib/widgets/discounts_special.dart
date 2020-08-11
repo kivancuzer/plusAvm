@@ -1,5 +1,5 @@
-import 'package:avmv005/Pages/FullScreen.dart';
 import 'package:avmv005/Pages/See_All/discounts_special_see_all.dart';
+import 'package:avmv005/Pages/course_info_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -75,7 +75,7 @@ class DiscountPageSpecials extends StatelessWidget {
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => FullScreen(
+                            builder: (_) => CourseInfoScreen(
                               imageUrl:
                                   snapshot.data[index].data["image"].toString(),
                               avmName: snapshot.data[index].data["avm_name"]
