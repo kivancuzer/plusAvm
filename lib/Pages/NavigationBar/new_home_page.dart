@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:avmv005/commons/collapsing_navigation_drawer_widget.dart';
 import 'package:avmv005/widgets/content_scroll.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +126,7 @@ class _HomeScreenNewState extends State<HomeScreenNew> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      drawer: DrawerCodeOnly(),
+      drawer: CollapsingNavigationDrawer(),
       // Alternatif Bir Menu ve Search Buttonu Tasarımı
 
       /*backgroundColor: Colors.white,

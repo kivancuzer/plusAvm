@@ -74,7 +74,6 @@ class ScaffoldState extends State<ScaffoldOgesi> {
               aktifOge = i;
               setState(() {});
             }),
-        drawer: new DrawerCodeOnly(),
       ),
     );
   }

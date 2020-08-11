@@ -1,3 +1,4 @@
+import 'package:avmv005/commons/collapsing_navigation_drawer_widget.dart';
 import 'package:avmv005/main.dart';
 import 'package:avmv005/widgets/gallery.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      drawer: DrawerCodeOnly(),
+      drawer: CollapsingNavigationDrawer(),
       body: SafeArea(
         child: ListView(
           children: <Widget>[

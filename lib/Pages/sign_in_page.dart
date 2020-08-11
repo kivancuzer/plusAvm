@@ -1,5 +1,6 @@
 import 'package:avmv005/Model/user_model.dart';
 import 'package:avmv005/View_Model/user_model.dart';
+import 'package:avmv005/commons/collapsing_navigation_drawer_widget.dart';
 import 'package:avmv005/email_password_sign_in.dart';
 import 'package:avmv005/main.dart';
 import 'package:avmv005/widgets/common_widget/social_login_button.dart';
@@ -36,7 +37,7 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      drawer: DrawerCodeOnly(),
+      drawer: CollapsingNavigationDrawer(),
       body: SafeArea(
         child: ListView(
           children: <Widget>[

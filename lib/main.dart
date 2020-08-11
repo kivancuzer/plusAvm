@@ -19,7 +19,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  String kivanc;
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -27,8 +26,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Avm+',
         theme: ThemeData(
-          primaryColor: Colors.red,
-          accentColor: Color(0xFFFEF9EB),
+          primaryColor: Colors.amber,
+          primarySwatch: Colors.amber,
+          accentColor: Colors.amber,
         ),
         home: ScaffoldOgesi(),
       ),
@@ -41,86 +41,99 @@ class DrawerCodeOnly extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Drawer(
         child: Drawer(
-      child: Column(
+        child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Container(
-            height: 120.0,
-            width: double.maxFinite,
-            color: Color.fromRGBO(101, 99, 250, 100),
-            child: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Align(
-                child: FlutterLogo(
-                  size: 40.0,
-                ),
-                alignment: Alignment.bottomLeft,
-              ),
+          UserAccountsDrawerHeader(accountName: Text("omercansucu"),
+          accountEmail: Text("omercansucu@gmail.com"),
+          currentAccountPicture: Image.network("https://emrealtunbilek.com/wp-content/uploads/2016/10/apple-icon-72x72.png"),
+          ),
+          Expanded(child: ListView(children: <Widget>[
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, "/");
+            },
+            splashColor: Color.fromRGBO(80, 77, 229, 100),
+            child: ListTile(
+              leading: Icon(Icons.home),
+              title: Text("Ana Sayfa"),
+              trailing: Icon(Icons.chevron_right),
             ),
           ),
-          Expanded(
-            child: ListView(
-              children: <Widget>[
-                ListTile(
-                  title: Text("Homepage"),
-                  trailing: Icon(Icons.arrow_right),
-                  onTap: () {
-                    Navigator.pushNamed(context, "/");
-                  },
-                ),
-                ListTile(
-                    title: Text("Discounts"),
-                    trailing: Icon(Icons.arrow_right),
-                    onTap: () {
-                      Navigator.push(
+          InkWell(
+            onTap: () {
+               Navigator.push(
                           context,
                           new MaterialPageRoute(
-                              builder: (context) => new DiscountsScreen()));
-                    }),
-                ListTile(
-                    title: Text("Trends"),
-                    trailing: Icon(Icons.arrow_right),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                              builder: (context) => new TrendsScreen()));
-                    }),
-                ListTile(
-                    title: Text("Events"),
-                    trailing: Icon(Icons.arrow_right),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => new EventsScreen()),
-                      );
-                    }),
-                ListTile(
-                    title: Text("Gallery"),
-                    trailing: Icon(Icons.arrow_right),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                              builder: (context) => new GalleryScreen()));
-                    }),
-                ListTile(
-                    title: Text("Bilboard"),
-                    trailing: Icon(Icons.arrow_right),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                              builder: (context) => new BilboardScreen()));
-                    }),
-                ListTile(
-                  title: Text("Settings"),
-                  trailing: Icon(Icons.arrow_right),
-                ),
-              ],
+                          builder: (context) => new DiscountsScreen()));
+            },
+            splashColor: Color.fromRGBO(80, 77, 229, 100),
+            child: ListTile(
+              leading: Icon(Icons.trending_down),
+              title: Text("İndirimler"),
+              trailing: Icon(Icons.chevron_right),
             ),
           ),
+            InkWell(
+            onTap: () {
+               Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                          builder: (context) => new EventsScreen()));
+            },
+            splashColor: Color.fromRGBO(80, 77, 229, 100),
+            child: ListTile(
+              leading: Icon(Icons.event),
+              title: Text("Etkinlikler"),
+              trailing: Icon(Icons.chevron_right),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+               Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                          builder: (context) => new TrendsScreen()));
+            },
+            splashColor: Color.fromRGBO(80, 77, 229, 100),
+            child: ListTile(
+              leading: Icon(Icons.trending_up),
+              title: Text("Trendler"),
+              trailing: Icon(Icons.chevron_right),
+            ),
+          ),
+
+          InkWell(
+            onTap: () {
+               Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                          builder: (context) => new GalleryScreen()));
+            },
+            splashColor: Color.fromRGBO(80, 77, 229, 100),
+            child: ListTile(
+              leading: Icon(Icons.photo),
+              title: Text("Galeri"),
+              trailing: Icon(Icons.chevron_right),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+               Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                          builder: (context) => new BilboardScreen()));
+            },
+            splashColor: Color.fromRGBO(80, 77, 229, 100),
+            child: ListTile(
+              leading: Icon(Icons.dvr),
+              title: Text("Bilboard"),
+              trailing: Icon(Icons.chevron_right),
+            ),
+          ),
+          ],
+          ),
+          )
         ],
       ),
     ));

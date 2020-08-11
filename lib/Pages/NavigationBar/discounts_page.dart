@@ -1,3 +1,4 @@
+import 'package:avmv005/commons/collapsing_navigation_drawer_widget.dart';
 import 'package:avmv005/widgets/discounts_slide.dart';
 import 'package:avmv005/widgets/discounts_special.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class _DiscountsScreen extends State<DiscountsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      drawer: DrawerCodeOnly(),
+      drawer: CollapsingNavigationDrawer(),
       body: SafeArea(
         child: ListView(
           children: <Widget>[

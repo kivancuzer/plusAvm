@@ -1,3 +1,4 @@
+import 'package:avmv005/commons/collapsing_navigation_drawer_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:avmv005/main.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,7 @@ class _SearchListExampleState extends State<SearchListExample> {
     return new Scaffold(
         key: globalKey,
         appBar: buildAppBarSearch(context),
-        drawer: DrawerCodeOnly(),
+        drawer: CollapsingNavigationDrawer(),
         body: new Container(
           child: new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
