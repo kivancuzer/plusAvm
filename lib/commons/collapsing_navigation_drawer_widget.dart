@@ -1,4 +1,5 @@
 import 'package:avmv005/Model/navigation_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../custom_navigation_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,8 @@ class CollapsingNavigationDrawer extends StatefulWidget {
 
 class CollapsingNavigationDrawerState extends State<CollapsingNavigationDrawer>
     with SingleTickerProviderStateMixin {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseUser user;
   double maxWidth = 210;
   double minWidth = 70;
   bool isCollapsed = false;
@@ -25,6 +28,11 @@ class CollapsingNavigationDrawerState extends State<CollapsingNavigationDrawer>
         vsync: this, duration: Duration(milliseconds: 300));
     widthAnimation = Tween<double>(begin: maxWidth, end: minWidth)
         .animate(_animationController);
+  }
+
+  initUser() async {
+    user = await _auth.currentUser();
+    setState(() {});
   }
 
   @override
@@ -43,12 +51,13 @@ class CollapsingNavigationDrawerState extends State<CollapsingNavigationDrawer>
         color: drawerBackgroundColor,
         child: Column(
           children: <Widget>[
-            CollapsingListTile(title: 'Techie', icon: Icons.person, animationController: _animationController,),
             Divider(color: Colors.grey, height: 40.0,),
+            CollapsingListTile(title: "${user?.displayName}", icon: Icons.person, animationController: _animationController,),
+            Divider(color: Colors.grey, height: 8.0,),
             Expanded(
               child: ListView.separated(
                 separatorBuilder: (context, counter) {
-                  return Divider(height: 12.0);
+                  return Divider(height: 6.0);
                 },
                 itemBuilder: (context, counter) {
                   return CollapsingListTile(
@@ -57,7 +66,7 @@ class CollapsingNavigationDrawerState extends State<CollapsingNavigationDrawer>
                           currentSelectedIndex = counter;
                         });
                       },
-                      isSelected: currentSelectedIndex == counter,
+                      //isSelected: currentSelectedIndex == counter,
                       title: navigationItems[counter].title,
                       icon: navigationItems[counter].icon,
                       animationController: _animationController,
@@ -78,7 +87,7 @@ class CollapsingNavigationDrawerState extends State<CollapsingNavigationDrawer>
               child: AnimatedIcon(
                 icon: AnimatedIcons.close_menu,
                 progress: _animationController,
-                color: selectedColor,
+                color: Color.fromRGBO(191, 191, 211, 100),
                 size: 50.0,
               ),
             ),

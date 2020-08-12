@@ -2,6 +2,7 @@ import 'package:avmv005/Pages/Drawer/search.dart';
 import 'package:avmv005/Pages/NavigationBar/new_home_page.dart';
 import 'package:avmv005/Pages/landing_page.dart';
 import 'package:avmv005/View_Model/user_model.dart';
+import 'package:avmv005/custom_navigation_drawer.dart';
 import 'package:avmv005/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -68,8 +69,8 @@ class ScaffoldState extends State<ScaffoldOgesi> {
                 title: Text('Profile'),
               ),
             ],
-            selectedItemColor: Color.fromRGBO(101, 99, 250, 100),
-            unselectedItemColor: Color.fromRGBO(191, 191, 211, 100),
+            selectedItemColor: selectedColor,
+            unselectedItemColor: unSelectedColor,
             onTap: (int i) {
               aktifOge = i;
               setState(() {});

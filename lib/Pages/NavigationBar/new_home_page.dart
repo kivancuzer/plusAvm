@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:avmv005/commons/collapsing_navigation_drawer_widget.dart';
+import 'package:avmv005/scaffold.dart';
 import 'package:avmv005/widgets/content_scroll.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,6 @@ class _HomeScreenNewState extends State<HomeScreenNew> {
     //"Anasayfa_Ust" Koleksiyonundaki bütün veriyi çeker.
     QuerySnapshot qs =
         await firestore.collection("Anasayfa_Ust").getDocuments();
-
     return qs.documents;
   }
 

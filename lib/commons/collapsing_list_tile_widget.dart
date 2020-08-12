@@ -1,19 +1,27 @@
+import 'package:avmv005/Pages/NavigationBar/bilboard_page.dart';
+import 'package:avmv005/Pages/NavigationBar/discounts_page.dart';
+import 'package:avmv005/Pages/NavigationBar/events_page.dart';
+import 'package:avmv005/Pages/NavigationBar/gallery_page.dart';
+import 'package:avmv005/Pages/NavigationBar/new_home_page.dart';
+import 'package:avmv005/Pages/NavigationBar/trends_page.dart';
+
 import '../custom_navigation_drawer.dart';
 import 'package:flutter/material.dart';
 
 class CollapsingListTile extends StatefulWidget {
-  final String title;
-  final IconData icon;
-  final AnimationController animationController;
-  final bool isSelected;
-  final Function onTap;
+ String title;
+ IconData icon;
+ AnimationController animationController;
+ bool isSelected;
+ Function onTap;
 
   CollapsingListTile(
       {@required this.title,
       @required this.icon,
       @required this.animationController,
       this.isSelected = false,
-      this.onTap});
+      this.onTap,
+      });
 
   @override
   _CollapsingListTileState createState() => _CollapsingListTileState();
@@ -21,7 +29,6 @@ class CollapsingListTile extends StatefulWidget {
 
 class _CollapsingListTileState extends State<CollapsingListTile> {
   Animation<double> widthAnimation, sizedBoxAnimation;
-
   @override
   void initState() {
     super.initState();
@@ -34,7 +41,45 @@ class _CollapsingListTileState extends State<CollapsingListTile> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: widget.onTap,
+      onTap:(){
+      print(widget.title);
+      if(widget.title == "Anasayfa"){
+      Navigator.pushNamed(context, "/");
+      }
+      if(widget.title == "İndirimler"){
+      Navigator.push(
+      context,
+      new MaterialPageRoute(
+      builder: (context) => new DiscountsScreen()),
+      );
+      }
+      if(widget.title == "Trendler"){
+      Navigator.push(
+      context,
+      new MaterialPageRoute(
+      builder: (context) => new TrendsScreen()),
+      );
+      }
+      if(widget.title == "Etkinlikler"){
+      Navigator.push(
+      context,
+      new MaterialPageRoute(
+      builder: (context) => new EventsScreen()),
+      );      }
+      if(widget.title == "Galeri"){
+      Navigator.push(
+      context,
+      new MaterialPageRoute(
+      builder: (context) => new GalleryScreen()),
+      );      }
+      if(widget.title == "Bilboard"){
+      Navigator.push(
+      context,
+      new MaterialPageRoute(
+      builder: (context) => new BilboardScreen()),
+      );
+      }
+      },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(16.0)),
@@ -49,7 +94,7 @@ class _CollapsingListTileState extends State<CollapsingListTile> {
           children: <Widget>[
             Icon(
               widget.icon,
-              color: widget.isSelected ? selectedColor : Colors.white30,
+              color: widget.isSelected ? selectedColor : unSelectedColor,
               size: 38.0,
             ),
             SizedBox(width: sizedBoxAnimation.value),
@@ -57,7 +102,8 @@ class _CollapsingListTileState extends State<CollapsingListTile> {
                 ? Text(widget.title,
                     style: widget.isSelected
                         ? listTitleSelectedTextStyle
-                        : listTitleDefaultTextStyle)
+                        : listTitleDefaultTextStyle,
+                        )
                 : Container()
           ],
         ),
