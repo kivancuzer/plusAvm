@@ -3,9 +3,10 @@ import 'package:avmv005/Pages/NavigationBar/new_home_page.dart';
 import 'package:avmv005/Pages/course_info_screen.dart';
 import 'package:avmv005/Pages/landing_page.dart';
 import 'package:avmv005/View_Model/user_model.dart';
-import 'package:avmv005/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'commons/collapsing_navigation_drawer_widget.dart';
 
 class ScaffoldOgesi extends StatefulWidget {
   @override
@@ -76,7 +77,7 @@ class ScaffoldState extends State<ScaffoldOgesi> {
             aktifOge = i;
             setState(() {});
           }),
-      drawer: new DrawerCodeOnly(),
+      drawer: CollapsingNavigationDrawer(),
     );
   }
 }

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:avmv005/Pages/FullScreen.dart';
 import '../../main.dart';
-
+import 'package:avmv005/commons/collapsing_navigation_drawer_widget.dart';
 class HomeScreenNew extends StatefulWidget {
   @override
   _HomeScreenNewState createState() => _HomeScreenNewState();
@@ -125,7 +125,7 @@ class _HomeScreenNewState extends State<HomeScreenNew> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      drawer: DrawerCodeOnly(),
+      drawer: CollapsingNavigationDrawer(),
       // Alternatif Bir Menu ve Search Buttonu Tasarımı
 
       /*backgroundColor: Colors.white,

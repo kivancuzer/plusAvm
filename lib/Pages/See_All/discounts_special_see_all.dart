@@ -1,8 +1,7 @@
+import 'package:avmv005/commons/collapsing_navigation_drawer_widget.dart';
 import 'package:avmv005/widgets/discounts_special_see_all_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../main.dart';
 
 class DiscountsSpecialSeeAll extends StatefulWidget {
   @override
@@ -16,7 +15,7 @@ class _DiscountsSpecialSeeAllState extends State<DiscountsSpecialSeeAll> {
         appBar: new AppBar(
           title: new Text("Avm+_Special_Discounts"),
         ),
-        drawer: DrawerCodeOnly(),
+        drawer: CollapsingNavigationDrawer(),
         body: SafeArea(
           child: ListView(
             children: <Widget>[

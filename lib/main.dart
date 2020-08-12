@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class DrawerCodeOnly extends StatelessWidget {
+/*class DrawerCodeOnly extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Drawer(
@@ -124,7 +124,7 @@ class DrawerCodeOnly extends StatelessWidget {
       ),
     ));
   }
-}
+}*/
 
 Widget buildAppBar() {
   return new AppBar(
