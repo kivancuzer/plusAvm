@@ -1,6 +1,5 @@
 import 'package:avmv005/Model/user_model.dart';
 import 'package:avmv005/View_Model/user_model.dart';
-import 'package:avmv005/main.dart';
 import 'package:avmv005/widgets/profileWidget.dart';
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';

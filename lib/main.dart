@@ -1,13 +1,8 @@
-import 'package:avmv005/Pages/NavigationBar/events_page.dart';
-import 'package:avmv005/Pages/NavigationBar/trends_page.dart';
 import 'package:avmv005/View_Model/user_model.dart';
 import 'package:avmv005/locator.dart';
 import 'package:avmv005/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'Pages/NavigationBar/bilboard_page.dart';
-import 'Pages/NavigationBar/discounts_page.dart';
-import 'Pages/NavigationBar/gallery_page.dart';
 
 void main() {
   setupLocator();
