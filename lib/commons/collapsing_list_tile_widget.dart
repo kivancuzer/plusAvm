@@ -2,18 +2,17 @@ import 'package:avmv005/Pages/NavigationBar/bilboard_page.dart';
 import 'package:avmv005/Pages/NavigationBar/discounts_page.dart';
 import 'package:avmv005/Pages/NavigationBar/events_page.dart';
 import 'package:avmv005/Pages/NavigationBar/gallery_page.dart';
-import 'package:avmv005/Pages/NavigationBar/new_home_page.dart';
 import 'package:avmv005/Pages/NavigationBar/trends_page.dart';
 
 import '../custom_navigation_drawer.dart';
 import 'package:flutter/material.dart';
 
 class CollapsingListTile extends StatefulWidget {
- String title;
- IconData icon;
- AnimationController animationController;
- bool isSelected;
- Function onTap;
+final String title;
+final IconData icon;
+final AnimationController animationController;
+final bool isSelected;
+final Function onTap;
 
   CollapsingListTile(
       {@required this.title,
