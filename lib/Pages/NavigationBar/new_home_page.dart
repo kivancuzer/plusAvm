@@ -6,6 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:avmv005/Pages/FullScreen.dart';
 import '../../main.dart';
 import 'package:avmv005/commons/collapsing_navigation_drawer_widget.dart';
+
+import '../course_info_screen.dart';
+
 class HomeScreenNew extends StatefulWidget {
   @override
   _HomeScreenNewState createState() => _HomeScreenNewState();
@@ -77,7 +80,7 @@ class _HomeScreenNewState extends State<HomeScreenNew> {
                           onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => FullScreen(
+                              builder: (_) => CourseInfoScreen(
                                 imageUrl: snapshot.data[index].data["image"]
                                     .toString(),
                                 avmName: snapshot.data[index].data["avm_name"]
