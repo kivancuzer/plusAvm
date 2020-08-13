@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:avmv005/Pages/course_info_screen.dart';
+import 'package:avmv005/Pages/AvmScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -44,17 +44,15 @@ class ContentScroll extends StatelessWidget {
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => CourseInfoScreen(
+                          builder: (_) => AvmScreen(
                             imageUrl:
                                 snapshot.data[index].data["image"].toString(),
                             avmName: snapshot.data[index].data["avm_name"]
                                 .toString(),
-                            brandName: snapshot.data[index].data["brand_name"]
-                                .toString(),
-                            info: snapshot.data[index].data["info"].toString(),
+                            carPark: snapshot.data[index].data["carPark"],
+                            cafe: snapshot.data[index].data["info"],
                             stars: snapshot.data[index].data["stars"],
-                            title:
-                                snapshot.data[index].data["title"].toString(),
+                            food: snapshot.data[index].data["title"],
                           ),
                         ),
                       ),
