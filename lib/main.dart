@@ -3,6 +3,7 @@ import 'package:avmv005/locator.dart';
 import 'package:avmv005/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 void main() {
   setupLocator();
   runApp(

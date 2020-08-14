@@ -26,8 +26,8 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.google.gms.google-services'
 
 android {
-
     compileSdkVersion 29
+
     lintOptions {
         disable 'InvalidPackage'
     }
@@ -38,7 +38,6 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         ndkVersion '21.1.6352462'
-
         multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

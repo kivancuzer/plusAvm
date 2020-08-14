@@ -8,19 +8,19 @@ import '../custom_navigation_drawer.dart';
 import 'package:flutter/material.dart';
 
 class CollapsingListTile extends StatefulWidget {
- String title;
- IconData icon;
- AnimationController animationController;
- bool isSelected;
- Function onTap;
+  String title;
+  IconData icon;
+  AnimationController animationController;
+  bool isSelected;
+  Function onTap;
 
-  CollapsingListTile(
-      {@required this.title,
-      @required this.icon,
-      @required this.animationController,
-      this.isSelected = false,
-      this.onTap,
-      });
+  CollapsingListTile({
+    @required this.title,
+    @required this.icon,
+    @required this.animationController,
+    this.isSelected = false,
+    this.onTap,
+  });
 
   @override
   _CollapsingListTileState createState() => _CollapsingListTileState();
@@ -40,44 +40,41 @@ class _CollapsingListTileState extends State<CollapsingListTile> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap:(){
-      print(widget.title);
-      if(widget.title == "Anasayfa"){
-      Navigator.pushNamed(context, "/");
-      }
-      if(widget.title == "İndirimler"){
-      Navigator.push(
-      context,
-      new MaterialPageRoute(
-      builder: (context) => new DiscountsScreen()),
-      );
-      }
-      if(widget.title == "Trendler"){
-      Navigator.push(
-      context,
-      new MaterialPageRoute(
-      builder: (context) => new TrendsScreen()),
-      );
-      }
-      if(widget.title == "Etkinlikler"){
-      Navigator.push(
-      context,
-      new MaterialPageRoute(
-      builder: (context) => new EventsScreen()),
-      );      }
-      if(widget.title == "Galeri"){
-      Navigator.push(
-      context,
-      new MaterialPageRoute(
-      builder: (context) => new GalleryScreen()),
-      );      }
-      if(widget.title == "Bilboard"){
-      Navigator.push(
-      context,
-      new MaterialPageRoute(
-      builder: (context) => new BilboardScreen()),
-      );
-      }
+      onTap: () {
+        print(widget.title);
+        if (widget.title == "Anasayfa") {
+          Navigator.pushNamed(context, "/");
+        }
+        if (widget.title == "İndirimler") {
+          Navigator.push(
+            context,
+            new MaterialPageRoute(builder: (context) => new DiscountsScreen()),
+          );
+        }
+        if (widget.title == "Trendler") {
+          Navigator.push(
+            context,
+            new MaterialPageRoute(builder: (context) => new TrendsScreen()),
+          );
+        }
+        if (widget.title == "Etkinlikler") {
+          Navigator.push(
+            context,
+            new MaterialPageRoute(builder: (context) => new EventsScreen()),
+          );
+        }
+        if (widget.title == "Galeri") {
+          Navigator.push(
+            context,
+            new MaterialPageRoute(builder: (context) => new GalleryScreen()),
+          );
+        }
+        if (widget.title == "Bilboard") {
+          Navigator.push(
+            context,
+            new MaterialPageRoute(builder: (context) => new BilboardScreen()),
+          );
+        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -98,11 +95,12 @@ class _CollapsingListTileState extends State<CollapsingListTile> {
             ),
             SizedBox(width: sizedBoxAnimation.value),
             (widthAnimation.value >= 190)
-                ? Text(widget.title,
+                ? Text(
+                    widget.title,
                     style: widget.isSelected
                         ? listTitleSelectedTextStyle
                         : listTitleDefaultTextStyle,
-                        )
+                  )
                 : Container()
           ],
         ),
