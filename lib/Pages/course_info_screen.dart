@@ -1,5 +1,9 @@
 import 'package:avmv005/Model/favorites.dart';
+import 'package:avmv005/Model/user_model.dart';
+import 'package:avmv005/Pages/sign_in_page.dart';
+import 'package:avmv005/Repository/user_repository.dart';
 import 'package:avmv005/Utils/database_helper.dart';
+import 'package:avmv005/locator.dart';
 import 'package:flutter/material.dart';
 import 'design_course_app_theme.dart';
 
@@ -28,7 +32,11 @@ class CourseInfoScreen extends StatefulWidget {
 class _CourseInfoScreenState extends State<CourseInfoScreen>
     with TickerProviderStateMixin {
   DatabaseHelper dbh1 = DatabaseHelper();
-  IconData iconData = Icons.favorite;
+  Icon icon = new Icon(
+    Icons.favorite,
+    color: DesignCourseAppTheme.nearlyWhite,
+    size: 30,
+  ); //Icons.favorite;
   var _buttonType = ButtonType.AddFavorite;
   final double infoHeight = 364.0;
   AnimationController animationController;
@@ -65,35 +73,86 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
 
   @override
   Widget build(BuildContext context) {
-    void _changeButtonType() {
-      if (_buttonType == ButtonType.AddFavorite) {
-        try {
-          dbh1.addFavorites(Favorites(
-              widget.imageUrl.toString(),
-              widget.avmName.toString(),
-              widget.brandName.toString(),
-              widget.info.toString(),
-              widget.stars.toString(),
-              widget.title.toString()));
-          print("Kaydedildi.");
-          iconData = Icons.favorite;
-        } catch (e) {
-          print("Kaydederken bir hata oluştu" + e.toString());
+    UserRepository _userRepository = locator<UserRepository>();
+    User _user;
+    void _changeButtonType() async {
+      _user = await _userRepository.currentUser();
+      print(_user.toString());
+      if (_user == null) {
+        showAlertDialog(BuildContext context) {
+          // set up the buttons
+          Widget cancelButton = FlatButton(
+            child: Text("Kapat"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          );
+          Widget continueButton = FlatButton(
+            child: Text("Oturum Aç"),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SignInPage()));
+            },
+          );
+
+          // set up the AlertDialog
+          AlertDialog alert = AlertDialog(
+            title: Text("Oturum Aç"),
+            content: Text("Kaydetmek İçin Oturum Açmanız Gerekiyor!"),
+            actions: [
+              cancelButton,
+              continueButton,
+            ],
+          );
+
+          // show the dialog
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return alert;
+            },
+          );
         }
+
+        showAlertDialog(context);
       } else {
-        try {
-          dbh1.deleteFavorite(widget.imageUrl);
-          iconData = Icons.favorite_border;
-          print("Silindi.");
-        } catch (e) {
-          print("Silme işlemi sırasında bir hata oluştu" + e.toString());
+        if (_buttonType == ButtonType.AddFavorite) {
+          try {
+            dbh1.addFavorites(Favorites(
+                widget.imageUrl.toString(),
+                widget.avmName.toString(),
+                widget.brandName.toString(),
+                widget.info.toString(),
+                widget.stars.toString(),
+                widget.title.toString()));
+            print("Kaydedildi.");
+            icon = new Icon(
+              Icons.favorite,
+              color: Colors.blue,
+              size: 30,
+            ); //Icons.favorite;
+          } catch (e) {
+            print("Kaydederken bir hata oluştu" + e.toString());
+          }
+        } else {
+          try {
+            dbh1.deleteFavorite(widget.imageUrl);
+            icon = new Icon(
+              Icons.favorite,
+              color: Colors.red,
+              size: 30,
+            ); //Icons.favorite;
+            print("Silindi.");
+          } catch (e) {
+            print("Silme işlemi sırasında bir hata oluştu" + e.toString());
+          }
         }
+        setState(() {
+          _buttonType = _buttonType == ButtonType.AddFavorite
+              ? ButtonType.DeleteFavorite
+              : ButtonType.AddFavorite;
+        });
       }
-      setState(() {
-        _buttonType = _buttonType == ButtonType.AddFavorite
-            ? ButtonType.DeleteFavorite
-            : ButtonType.AddFavorite;
-      });
     }
 
     final double tempHeight = MediaQuery.of(context).size.height -
@@ -338,11 +397,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                     height: 60,
                     child: Center(
                       child: IconButton(
-                        icon: Icon(
-                          iconData,
-                          color: DesignCourseAppTheme.nearlyWhite,
-                          size: 30,
-                        ),
+                        icon: icon,
                         onPressed: () => {_changeButtonType()},
                       ),
                     ),
