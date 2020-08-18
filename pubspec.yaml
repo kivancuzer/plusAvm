@@ -19,7 +19,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  characters: ^1.0.0
+  characters:
+  location:
+  google_maps_flutter:
   firebase_database: 
   cloud_firestore: 
   firebase_storage:
