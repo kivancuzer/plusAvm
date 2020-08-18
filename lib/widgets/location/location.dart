@@ -20,9 +20,10 @@ class _MapScreenState extends State<MapScreen> {
   //Kullanıcının lokasyonunu alacağımız fonksiyon
   Future<void> _getCurrentUserLocation() async {
     final locData = await Location().getLocation();
-    print(locData.latitude);
-    print(locData.longitude);
+    print("latitude" + locData.latitude.toString());
+    print("longitude" + locData.longitude.toString());
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -39,7 +40,7 @@ class _MapScreenState extends State<MapScreen> {
     _pageController = PageController(initialPage: 1, viewportFraction: 0.8)
       ..addListener(_onScroll);
   }
-  
+
   void _onScroll() {
     if (_pageController.page.toInt() != prevPage) {
       prevPage = _pageController.page.toInt();
@@ -119,45 +120,45 @@ class _MapScreenState extends State<MapScreen> {
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                
                               ])
                         ]))))
           ])),
     );
   }
+
   @override
- Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
-          children: <Widget>[
-            Container(
-              height: MediaQuery.of(context).size.height - 50.0,
-              width: MediaQuery.of(context).size.width,
-              child: GoogleMap(
-                initialCameraPosition: CameraPosition(
-                  //latitude, longtitude şeklinde buraya ekleyemedim
-                  target: LatLng(40.7128, -74.0060), zoom: 12.0),
-                markers: Set.from(allMarkers),
-                onMapCreated: mapCreated,
-              ),
+      children: <Widget>[
+        Container(
+          height: MediaQuery.of(context).size.height - 50.0,
+          width: MediaQuery.of(context).size.width,
+          child: GoogleMap(
+            initialCameraPosition: CameraPosition(
+                //latitude, longtitude şeklinde buraya ekleyemedim
+                target: LatLng(40.7128, -74.0060),
+                zoom: 12.0),
+            markers: Set.from(allMarkers),
+            onMapCreated: mapCreated,
+          ),
+        ),
+        Positioned(
+          bottom: 20.0,
+          child: Container(
+            height: 200.0,
+            width: MediaQuery.of(context).size.width,
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: placeAvms.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _avmList(index);
+              },
             ),
-            Positioned(
-              bottom: 20.0,
-              child: Container(
-                height: 200.0,
-                width: MediaQuery.of(context).size.width,
-                child: PageView.builder(
-                  controller: _pageController,
-                  itemCount: placeAvms.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return _avmList(index);
-                  },
-                ),
-              ),
-            ),
-       
-          ],
-        ));
+          ),
+        ),
+      ],
+    ));
   }
 
   void mapCreated(controller) {
@@ -165,6 +166,7 @@ class _MapScreenState extends State<MapScreen> {
       _controller = controller;
     });
   }
+
   moveCamera() {
     _controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: placeAvms[_pageController.page.toInt()].locationCoords,

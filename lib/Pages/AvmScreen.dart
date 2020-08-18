@@ -41,13 +41,14 @@ class _AvmScreenState extends State<AvmScreen> {
                     child: Hero(
                       tag: widget.imageUrl,
                       child: Image(
-                          height: 150,
-                          width: 150,
-                          //Fill resmi sığdır
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                            widget.imageUrl,
-                          )),
+                        height: 150,
+                        width: 150,
+                        //Fill resmi sığdır
+                        fit: BoxFit.fill,
+                        image: NetworkImage(
+                          widget.imageUrl,
+                        ),
+                      ),
                     ),
                   ),
                 ],
