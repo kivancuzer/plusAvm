@@ -1,3 +1,4 @@
+import 'package:avmv005/Pages/Drawer/cinema.dart';
 import 'package:avmv005/Pages/Drawer/search.dart';
 import 'package:avmv005/Pages/NavigationBar/new_home_page.dart';
 import 'package:avmv005/Pages/course_info_screen.dart';
@@ -27,7 +28,7 @@ class ScaffoldState extends State<ScaffoldOgesi> {
         break;
 
       case 2:
-        return CourseInfoScreen();
+        return CinemaPage();
         break;
 
       case 3:
