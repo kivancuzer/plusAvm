@@ -3,9 +3,9 @@ import 'package:avmv005/Pages/NavigationBar/new_home_page.dart';
 import 'package:avmv005/Pages/course_info_screen.dart';
 import 'package:avmv005/Pages/landing_page.dart';
 import 'package:avmv005/View_Model/user_model.dart';
+import 'package:avmv005/widgets/location/location.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'commons/collapsing_navigation_drawer_widget.dart';
 
 class ScaffoldOgesi extends StatefulWidget {
@@ -14,6 +14,8 @@ class ScaffoldOgesi extends StatefulWidget {
 }
 
 class ScaffoldState extends State<ScaffoldOgesi> {
+
+  
   int aktifOge = 0;
 
   gecerliSayfa(int aktif) {
@@ -23,6 +25,7 @@ class ScaffoldState extends State<ScaffoldOgesi> {
         break;
 
       case 1:
+      
         return SearchListExample();
         break;
 
@@ -31,7 +34,7 @@ class ScaffoldState extends State<ScaffoldOgesi> {
         break;
 
       case 3:
-        return HomeScreenNew();
+        return MapScreen();
         break;
 
       case 4:
@@ -42,7 +45,6 @@ class ScaffoldState extends State<ScaffoldOgesi> {
         break;
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
