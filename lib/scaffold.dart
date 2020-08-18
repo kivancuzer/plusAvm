@@ -1,11 +1,11 @@
 import 'package:avmv005/Pages/Drawer/cinema.dart';
 import 'package:avmv005/Pages/Drawer/search.dart';
 import 'package:avmv005/Pages/NavigationBar/new_home_page.dart';
-import 'package:avmv005/Pages/course_info_screen.dart';
 import 'package:avmv005/Pages/landing_page.dart';
 import 'package:avmv005/View_Model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:avmv005/widgets/location/location.dart';
 
 import 'commons/collapsing_navigation_drawer_widget.dart';
 
@@ -32,7 +32,7 @@ class ScaffoldState extends State<ScaffoldOgesi> {
         break;
 
       case 3:
-        return HomeScreenNew();
+        return MapScreen();
         break;
 
       case 4:

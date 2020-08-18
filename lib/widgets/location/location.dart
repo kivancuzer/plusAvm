@@ -2,6 +2,7 @@ import 'package:avmv005/Model/place.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -12,14 +13,13 @@ class _MapScreenState extends State<MapScreen> {
   GoogleMapController _controller;
   //Harita üzerindeki işaretlerimizi modelden çekmek için kullanılacak boş listemizi oluşturuyoruz.
   List<Marker> allMarkers = [];
-
   PageController _pageController;
-
   int prevPage;
+  LocationData locData;
 
   //Kullanıcının lokasyonunu alacağımız fonksiyon
   Future<void> _getCurrentUserLocation() async {
-    final locData = await Location().getLocation();
+    locData = await Location().getLocation();
     print("latitude" + locData.latitude.toString());
     print("longitude" + locData.longitude.toString());
   }
@@ -39,6 +39,7 @@ class _MapScreenState extends State<MapScreen> {
     });
     _pageController = PageController(initialPage: 1, viewportFraction: 0.8)
       ..addListener(_onScroll);
+    _getCurrentUserLocation();
   }
 
   void _onScroll() {
@@ -126,45 +127,55 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(
-      children: <Widget>[
-        Container(
-          height: MediaQuery.of(context).size.height - 50.0,
-          width: MediaQuery.of(context).size.width,
-          child: GoogleMap(
-            initialCameraPosition: CameraPosition(
-                //latitude, longtitude şeklinde buraya ekleyemedim
-                target: LatLng(40.7128, -74.0060),
-                zoom: 12.0),
-            markers: Set.from(allMarkers),
-            onMapCreated: mapCreated,
-          ),
-        ),
-        Positioned(
-          bottom: 20.0,
-          child: Container(
-            height: 200.0,
-            width: MediaQuery.of(context).size.width,
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: placeAvms.length,
-              itemBuilder: (BuildContext context, int index) {
-                return _avmList(index);
-              },
-            ),
-          ),
-        ),
-      ],
-    ));
-  }
-
   void mapCreated(controller) {
     setState(() {
       _controller = controller;
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: FutureBuilder(
+            future: _getCurrentUserLocation(),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (locData.latitude != null && locData.longitude != null) {
+                return Stack(
+                  children: <Widget>[
+                    Container(
+                      height: MediaQuery.of(context).size.height - 50.0,
+                      width: MediaQuery.of(context).size.width,
+                      child: GoogleMap(
+                        initialCameraPosition: CameraPosition(
+                            //latitude, longtitude şeklinde buraya ekleyemedim
+                            target: LatLng(locData.latitude, locData.longitude),
+                            zoom: 12.0),
+                        markers: Set.from(allMarkers),
+                        onMapCreated: mapCreated,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 20.0,
+                      child: Container(
+                        height: 200.0,
+                        width: MediaQuery.of(context).size.width,
+                        child: PageView.builder(
+                          controller: _pageController,
+                          itemCount: placeAvms.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return _avmList(index);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return Center(
+                  child: Text("Loading..."),
+                );
+              }
+            }));
   }
 
   moveCamera() {
