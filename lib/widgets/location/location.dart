@@ -136,46 +136,47 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: FutureBuilder(
-            future: _getCurrentUserLocation(),
-            builder: (context, AsyncSnapshot snapshot) {
-              if (locData.latitude != null && locData.longitude != null) {
-                return Stack(
-                  children: <Widget>[
-                    Container(
-                      height: MediaQuery.of(context).size.height - 50.0,
+      body: FutureBuilder(
+          future: _getCurrentUserLocation(),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (locData.longitude == null || locData.latitude == null) {
+              return Center(
+                child: Text("Loading..."),
+              );
+            } else {
+              return Stack(
+                children: <Widget>[
+                  Container(
+                    height: MediaQuery.of(context).size.height - 50.0,
+                    width: MediaQuery.of(context).size.width,
+                    child: GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                          //latitude, longtitude şeklinde buraya ekleyemedim
+                          target: LatLng(locData.latitude, locData.longitude),
+                          zoom: 12.0),
+                      markers: Set.from(allMarkers),
+                      onMapCreated: mapCreated,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 20.0,
+                    child: Container(
+                      height: 200.0,
                       width: MediaQuery.of(context).size.width,
-                      child: GoogleMap(
-                        initialCameraPosition: CameraPosition(
-                            //latitude, longtitude şeklinde buraya ekleyemedim
-                            target: LatLng(locData.latitude, locData.longitude),
-                            zoom: 12.0),
-                        markers: Set.from(allMarkers),
-                        onMapCreated: mapCreated,
+                      child: PageView.builder(
+                        controller: _pageController,
+                        itemCount: placeAvms.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return _avmList(index);
+                        },
                       ),
                     ),
-                    Positioned(
-                      bottom: 20.0,
-                      child: Container(
-                        height: 200.0,
-                        width: MediaQuery.of(context).size.width,
-                        child: PageView.builder(
-                          controller: _pageController,
-                          itemCount: placeAvms.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return _avmList(index);
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              } else {
-                return Center(
-                  child: Text("Loading..."),
-                );
-              }
-            }));
+                  ),
+                ],
+              );
+            }
+          }),
+    );
   }
 
   moveCamera() {
