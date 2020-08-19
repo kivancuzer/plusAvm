@@ -2,7 +2,6 @@ import 'package:avmv005/Model/place.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -26,7 +25,6 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     //Yukarıda oluşturduğumuz allMarkers listesini dolduruyoruz.
     placeAvms.forEach((element) {
