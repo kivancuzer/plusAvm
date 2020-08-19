@@ -1,4 +1,5 @@
 import 'package:avmv005/Model/place.dart';
+import 'package:avmv005/custom_navigation_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -15,12 +16,19 @@ class _MapScreenState extends State<MapScreen> {
   PageController _pageController;
   int prevPage;
   LocationData locData;
+  static LatLng _initialPosition;
 
   //Kullanıcının lokasyonunu alacağımız fonksiyon
   Future<void> _getCurrentUserLocation() async {
     locData = await Location().getLocation();
     print("latitude" + locData.latitude.toString());
     print("longitude" + locData.longitude.toString());
+    setState(() {
+      _initialPosition = LatLng(locData.latitude, locData.longitude);
+    });
+  }
+  Future<void> goToCurrentUserLocation() async{
+    _controller.moveCamera(CameraUpdate.newLatLngZoom(_initialPosition, 15.0));
   }
 
   @override
@@ -134,24 +142,16 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-          future: _getCurrentUserLocation(),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (locData.longitude == null || locData.latitude == null) {
-              return Center(
-                child: Text("Loading..."),
-              );
-            } else {
-              return Stack(
+      body: _initialPosition == null ? Container(child: Center(child:Text('loading map..', style: TextStyle(fontFamily: 'Avenir-Medium', color: Colors.grey[400]),),),) : Container(
+            child: Stack(
                 children: <Widget>[
                   Container(
                     height: MediaQuery.of(context).size.height - 50.0,
                     width: MediaQuery.of(context).size.width,
                     child: GoogleMap(
                       initialCameraPosition: CameraPosition(
-                          //latitude, longtitude şeklinde buraya ekleyemedim
-                          target: LatLng(locData.latitude, locData.longitude),
-                          zoom: 12.0),
+                          target:_initialPosition,
+                          zoom: 15.0),
                       markers: Set.from(allMarkers),
                       onMapCreated: mapCreated,
                     ),
@@ -159,7 +159,7 @@ class _MapScreenState extends State<MapScreen> {
                   Positioned(
                     bottom: 20.0,
                     child: Container(
-                      height: 200.0,
+                      height: 950.0,
                       width: MediaQuery.of(context).size.width,
                       child: PageView.builder(
                         controller: _pageController,
@@ -170,10 +170,23 @@ class _MapScreenState extends State<MapScreen> {
                       ),
                     ),
                   ),
+                  Positioned(
+                    height: 1100,
+                    child:
+                    Row(
+                      children: <Widget>[
+                        FlatButton.icon(
+                          onPressed: goToCurrentUserLocation,
+                          icon: Icon(Icons.location_on),
+                          label: Text('Current Location'),
+                          textColor: Colors.black54,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
-              );
-            }
-          }),
+              ),
+          ),
     );
   }
 
@@ -184,4 +197,6 @@ class _MapScreenState extends State<MapScreen> {
         bearing: 45.0,
         tilt: 45.0)));
   }
+
+  
 }

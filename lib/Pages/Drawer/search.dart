@@ -1,3 +1,4 @@
+import 'package:avmv005/custom_navigation_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:avmv005/commons/collapsing_navigation_drawer_widget.dart';
@@ -97,7 +98,7 @@ class _SearchListExampleState extends State<SearchListExample> {
 
   Widget buildAppBarSearch(BuildContext context) {
     return new AppBar(
-        backgroundColor: Color.fromRGBO(80, 77, 229, 100),
+        backgroundColor: selectedColor,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(30),

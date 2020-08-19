@@ -1,4 +1,5 @@
 import 'package:avmv005/View_Model/user_model.dart';
+import 'package:avmv005/custom_navigation_drawer.dart';
 import 'package:avmv005/locator.dart';
 import 'package:avmv005/scaffold.dart';
 import 'package:flutter/material.dart';
@@ -123,14 +124,14 @@ class MyApp extends StatelessWidget {
 
 Widget buildAppBar() {
   return new AppBar(
-    backgroundColor: Color.fromRGBO(80, 77, 229, 100),
+    backgroundColor: selectedColor,
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
       bottom: Radius.circular(30),
     )),
     title: Container(
       decoration: BoxDecoration(
-        color: Color.fromRGBO(73, 70, 218, 100),
+        color: unSelectedColor,
         borderRadius: BorderRadius.circular(5),
       ),
     ),
