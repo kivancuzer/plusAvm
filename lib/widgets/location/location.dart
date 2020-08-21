@@ -1,5 +1,4 @@
 import 'package:avmv005/Model/place.dart';
-import 'package:avmv005/custom_navigation_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -27,7 +26,8 @@ class _MapScreenState extends State<MapScreen> {
       _initialPosition = LatLng(locData.latitude, locData.longitude);
     });
   }
-  Future<void> goToCurrentUserLocation() async{
+
+  Future<void> goToCurrentUserLocation() async {
     _controller.moveCamera(CameraUpdate.newLatLngZoom(_initialPosition, 15.0));
   }
 
@@ -142,16 +142,25 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _initialPosition == null ? Container(child: Center(child:Text('loading map..', style: TextStyle(fontFamily: 'Avenir-Medium', color: Colors.grey[400]),),),) : Container(
-            child: Stack(
+      body: _initialPosition == null
+          ? Container(
+              child: Center(
+                child: Text(
+                  'loading map..',
+                  style: TextStyle(
+                      fontFamily: 'Avenir-Medium', color: Colors.grey[400]),
+                ),
+              ),
+            )
+          : Container(
+              child: Stack(
                 children: <Widget>[
                   Container(
                     height: MediaQuery.of(context).size.height - 50.0,
                     width: MediaQuery.of(context).size.width,
                     child: GoogleMap(
-                      initialCameraPosition: CameraPosition(
-                          target:_initialPosition,
-                          zoom: 15.0),
+                      initialCameraPosition:
+                          CameraPosition(target: _initialPosition, zoom: 15.0),
                       markers: Set.from(allMarkers),
                       onMapCreated: mapCreated,
                     ),
@@ -172,8 +181,7 @@ class _MapScreenState extends State<MapScreen> {
                   ),
                   Positioned(
                     height: 1100,
-                    child:
-                    Row(
+                    child: Row(
                       children: <Widget>[
                         FlatButton.icon(
                           onPressed: goToCurrentUserLocation,
@@ -186,7 +194,7 @@ class _MapScreenState extends State<MapScreen> {
                   ),
                 ],
               ),
-          ),
+            ),
     );
   }
 
@@ -197,6 +205,4 @@ class _MapScreenState extends State<MapScreen> {
         bearing: 45.0,
         tilt: 45.0)));
   }
-
-  
 }

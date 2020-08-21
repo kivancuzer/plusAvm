@@ -34,7 +34,7 @@ dependencies:
   path_provider: 
   sqflite: 
   url_launcher: ^5.4.2
-  
+  flip_card: ^0.4.4
   
    
   
