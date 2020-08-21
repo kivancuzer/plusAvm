@@ -1,6 +1,7 @@
 import 'package:avmv005/Model/favorites.dart';
 import 'package:avmv005/Pages/course_info_screen.dart';
 import 'package:avmv005/Utils/database_helper.dart';
+import 'package:avmv005/scaffold.dart';
 import "package:flutter/material.dart";
 
 class ProfileWidget extends StatefulWidget {
@@ -11,10 +12,9 @@ class ProfileWidget extends StatefulWidget {
 class _ProfileWidgetState extends State<ProfileWidget> {
   DatabaseHelper _databaseHelper;
   List<Favorites> allFavoritesList;
-
   int clickedFavoritesIndex;
   int clickedFavoritesID;
-
+  bool light = true;
   @override
   void initState() {
     super.initState();
@@ -29,11 +29,27 @@ class _ProfileWidgetState extends State<ProfileWidget> {
       setState(() {});
     }).catchError((hata) => print("hata:" + hata));
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        ListTile(
+          title: Text("Dark Theme"),
+          trailing: Switch(
+            value: light,
+            onChanged: (state){
+              setState(() {
+                light = state;
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ScaffoldOgesi(light : light),
+                    ),
+                );
+              });
+            },
+          ),
+        ),
         Container(
           height: 500,
           width: 300,
@@ -90,3 +106,4 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     );
   }
 }
+

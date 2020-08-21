@@ -9,13 +9,17 @@ import 'package:avmv005/commons/collapsing_navigation_drawer_widget.dart';
 import '../course_info_screen.dart';
 
 class HomeScreenNew extends StatefulWidget {
+  bool light;
+  HomeScreenNew({Key key, this.light}) : super(key : key);
   @override
-  _HomeScreenNewState createState() => _HomeScreenNewState();
+  _HomeScreenNewState createState() => _HomeScreenNewState(light);
 }
 
 class _HomeScreenNewState extends State<HomeScreenNew> {
-  PageController _pageController;
+  bool light;
+  _HomeScreenNewState(this.light);
 
+  PageController _pageController;
   Future getPosts() async {
     var firestore = Firestore.instance;
     //"Anasayfa_Ust" Koleksiyonundaki bütün veriyi çeker.
@@ -126,6 +130,7 @@ class _HomeScreenNewState extends State<HomeScreenNew> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: (light==null) ? Colors.white : Colors.black,
       appBar: buildAppBar(),
       drawer: CollapsingNavigationDrawer(),
       // Alternatif Bir Menu ve Search Buttonu Tasarımı

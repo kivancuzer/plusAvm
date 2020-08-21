@@ -5,11 +5,12 @@ import 'package:avmv005/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+bool light;
 void main() {
   setupLocator();
   runApp(
     MaterialApp(initialRoute: "/", routes: {
-      "/": (context) => ScaffoldOgesi(),
+      "/": (context) => ScaffoldOgesi(light: light),
     }),
   );
 }
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.red,
           accentColor: Color(0xFFFEF9EB),
         ),
-        home: ScaffoldOgesi(),
+        home: ScaffoldOgesi(light: light),
       ),
     );
   }
