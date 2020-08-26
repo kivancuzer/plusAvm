@@ -13,12 +13,12 @@ class AvmScreen extends StatefulWidget {
   final bool food;
 
   AvmScreen(
-      {this.avmName,
-      this.imageUrl,
-      this.stars,
-      this.carPark,
-      this.cafe,
-      this.food});
+      {@required this.avmName,
+      this.imageUrl: "",
+      this.stars: "0.0",
+      this.carPark: false,
+      this.cafe: false,
+      this.food: false});
 
   @override
   _AvmScreenState createState() => _AvmScreenState();

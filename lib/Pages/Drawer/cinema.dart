@@ -12,7 +12,6 @@ class CinemaPage extends StatefulWidget {
 
 class _CinemaPageState extends State<CinemaPage> {
   String avm = "Agora";
-
   bool dark = false;
 
   Future getPosts() async {

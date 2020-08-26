@@ -7,7 +7,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // ignore: must_be_immutable
 class ContentScroll extends StatelessWidget {
-  String a;
   Future getPosts() async {
     var firestore = Firestore.instance;
     //Anasayfa_Avmler Koleksiyonunu çek

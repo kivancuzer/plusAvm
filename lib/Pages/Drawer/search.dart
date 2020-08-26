@@ -1,3 +1,4 @@
+import 'package:avmv005/Pages/AvmScreen.dart';
 import 'package:avmv005/custom_navigation_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +20,20 @@ class _SearchListExampleState extends State<SearchListExample> {
   );
   final globalKey = new GlobalKey<ScaffoldState>();
   final TextEditingController _controller = new TextEditingController();
-  List<dynamic> _list;
+  List<dynamic> _listAvmName;
+  List<dynamic> _listImage;
+  List<dynamic> _listStars;
+  List<dynamic> _listYemek;
+  List<dynamic> _listOtopark;
+  List<dynamic> _listCafe;
+
   bool _isSearching;
-  List searchresult = new List();
+  List searchresultAvmName = new List();
+  List searchresultImage = new List();
+  List searchresultStars = new List();
+  List searchresultYemek = new List();
+  List searchresultOtopark = new List();
+  List searchresultCafe = new List();
 
   _SearchListExampleState() {
     _controller.addListener(() {
@@ -45,7 +57,13 @@ class _SearchListExampleState extends State<SearchListExample> {
   }
 
   void values() {
-    _list = List();
+    _listAvmName = List();
+    _listImage = List();
+    _listStars = List();
+    _listYemek = List();
+    _listOtopark = List();
+    _listCafe = List();
+
     var firestore = Firestore.instance;
     //Anasayfa_Avmler Koleksiyonunu çek
     firestore
@@ -53,9 +71,23 @@ class _SearchListExampleState extends State<SearchListExample> {
         .getDocuments()
         .then((querySnapshot) {
       querySnapshot.documents.forEach((result) {
-        _list.add(result.data["avm_name"]);
+        _listAvmName.add(result.data["avm_name"]);
+        _listImage.add(result.data["image"]);
+        _listStars.add(result.data["stars"]);
+        _listYemek.add(result.data["yemek"]);
+        _listOtopark.add(result.data["otopark"]);
+        _listCafe.add(result.data["cafe"]);
       });
     });
+  }
+
+  Future getPosts() async {
+    var firestore = Firestore.instance;
+    //Anasayfa_Avmler Koleksiyonunu çek
+    QuerySnapshot qs =
+        await firestore.collection("Anasayfa_Avmler").getDocuments();
+
+    return qs.documents;
   }
 
   @override
@@ -69,27 +101,165 @@ class _SearchListExampleState extends State<SearchListExample> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  Text(
+                    "Avmler",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                        color: Colors.black),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
+              ),
               new Flexible(
-                child: searchresult.length != 0 || _controller.text.isNotEmpty
-                    ? new ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: searchresult.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          String listData = searchresult[index];
-                          return new ListTile(
-                            title: new Text(listData.toString()),
-                          );
-                        },
+                child: searchresultAvmName.length != 0 ||
+                        _controller.text.isNotEmpty
+                    ? Container(
+                        height: 200,
+                        width: MediaQuery.of(context).size.width,
+                        child: new ListView.builder(
+                          padding: EdgeInsets.symmetric(horizontal: 30.0),
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: searchresultAvmName.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            String listDataAvmName = searchresultAvmName[index];
+                            String listDataImage = searchresultImage[index];
+                            String listDataStars = searchresultStars[index];
+                            bool listDataCafe = searchresultCafe[index];
+                            bool listDataOtopark = searchresultOtopark[index];
+                            bool listDataYemek = searchresultYemek[index];
+                            return Container(
+                              child: new GestureDetector(
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => AvmScreen(
+                                      imageUrl:
+                                          searchresultImage[index].toString(),
+                                      avmName:
+                                          searchresultAvmName[index].toString(),
+                                      carPark: listDataOtopark,
+                                      cafe: listDataCafe,
+                                      stars: listDataStars.toString(),
+                                      food: listDataYemek,
+                                    ),
+                                  ),
+                                ),
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                    horizontal: 10.0,
+                                    vertical: 10.0,
+                                  ),
+                                  width: 180,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black54,
+                                        offset: Offset(0.0, 0.4),
+                                        blurRadius: 6.0,
+                                      ),
+                                    ],
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image(
+                                      image: NetworkImage(
+                                        listDataImage,
+                                      ),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       )
-                    : new ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: _list.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          String listData = _list[index];
-                          return new ListTile(
-                            title: new Text(listData.toString().toUpperCase()),
-                          );
-                        },
+                    : new Container(
+                        height: 200,
+                        width: MediaQuery.of(context).size.width,
+                        child: FutureBuilder(
+                          future: getPosts(),
+                          builder: (_, AsyncSnapshot snapshot) {
+                            //Veriler Yülenirke
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(
+                                child: Text("Loading..."),
+                              );
+                            } //Veriler Yüklendikten sonra
+                            else {
+                              return ListView.builder(
+                                padding: EdgeInsets.symmetric(horizontal: 30.0),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (_, index) {
+                                  //Seçilen Containerı(Avmyi) AvmScreende göster
+                                  return GestureDetector(
+                                    onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => AvmScreen(
+                                          imageUrl: snapshot
+                                              .data[index].data["image"]
+                                              .toString(),
+                                          avmName: snapshot
+                                              .data[index].data["avm_name"]
+                                              .toString(),
+                                          carPark: snapshot
+                                              .data[index].data["carPark"],
+                                          cafe:
+                                              snapshot.data[index].data["info"],
+                                          stars: snapshot
+                                              .data[index].data["stars"],
+                                          food: snapshot
+                                              .data[index].data["title"],
+                                        ),
+                                      ),
+                                    ),
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(
+                                        horizontal: 10.0,
+                                        vertical: 10.0,
+                                      ),
+                                      width: 180,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black54,
+                                            offset: Offset(0.0, 0.4),
+                                            blurRadius: 6.0,
+                                          ),
+                                        ],
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        child: Image(
+                                          image: NetworkImage(
+                                            snapshot.data[index].data['image'],
+                                          ),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                          },
+                        ),
                       ),
               )
             ],
@@ -159,12 +329,35 @@ class _SearchListExampleState extends State<SearchListExample> {
   }
 
   void searchOperation(String searchText) {
-    searchresult.clear();
+    searchresultAvmName.clear();
+    searchresultImage.clear();
+    searchresultStars.clear();
+    searchresultYemek.clear();
+    searchresultOtopark.clear();
+    searchresultCafe.clear();
+
     if (_isSearching != null) {
-      for (int i = 0; i < _list.length; i++) {
-        String data = _list[i];
-        if (data.toLowerCase().contains(searchText.toLowerCase())) {
-          searchresult.add(data);
+      for (int i = 0; i < _listAvmName.length; i++) {
+        String dataAvmName = _listAvmName[i];
+        String dataImage = _listImage[i];
+        String dataStars = _listStars[i];
+        bool dataYemek = _listYemek[i];
+        bool dataOtopark = _listOtopark[i];
+        bool dataCafe = _listCafe[i];
+        if (dataAvmName.toLowerCase().contains(searchText.toLowerCase())) {
+          searchresultAvmName.add(dataAvmName);
+          searchresultImage.add(dataImage);
+          searchresultStars.add(dataStars);
+          searchresultYemek.add(dataYemek);
+          searchresultOtopark.add(dataOtopark);
+          searchresultCafe.add(dataCafe);
+
+          print(searchresultAvmName.toString());
+          print(searchresultImage.toString());
+          print(searchresultStars.toString());
+          print(searchresultYemek.toString());
+          print(searchresultOtopark.toString());
+          print(searchresultCafe.toString());
         }
       }
     }

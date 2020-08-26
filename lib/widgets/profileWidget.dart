@@ -93,7 +93,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               onPressed: () => {
                                     deleteImage(
                                         allFavoritesList[index].imageUrl),
-                                    setState(() {}),
                                   }),
                         ],
                       )
