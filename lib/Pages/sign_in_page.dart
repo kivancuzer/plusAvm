@@ -82,12 +82,12 @@ class SignInPage extends StatelessWidget {
                   ),*/
                   SocialLoginButton(
                     buttonColor: Colors.teal,
-                    buttonText: "Cep telefonu ile Giriş Yap",
+                    buttonText: "Misafir Girişi Yap",
                     textColor: Colors.white,
                     radius: 16.0,
                     onPressed: () => _misafirGirisi(context),
                     buttonIcon: Icon(
-                      Icons.phone,
+                      Icons.accessibility_new,
                       size: 32,
                     ),
                   ),

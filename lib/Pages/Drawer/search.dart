@@ -2,6 +2,7 @@ import 'package:avmv005/custom_navigation_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:avmv005/commons/collapsing_navigation_drawer_widget.dart';
+
 class SearchListExample extends StatefulWidget {
   @override
   _SearchListExampleState createState() => new _SearchListExampleState();
@@ -86,7 +87,7 @@ class _SearchListExampleState extends State<SearchListExample> {
                         itemBuilder: (BuildContext context, int index) {
                           String listData = _list[index];
                           return new ListTile(
-                            title: new Text(listData.toString()),
+                            title: new Text(listData.toString().toUpperCase()),
                           );
                         },
                       ),

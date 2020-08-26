@@ -9,16 +9,11 @@ import 'package:avmv005/commons/collapsing_navigation_drawer_widget.dart';
 import '../course_info_screen.dart';
 
 class HomeScreenNew extends StatefulWidget {
-  bool light;
-  HomeScreenNew({Key key, this.light}) : super(key : key);
   @override
-  _HomeScreenNewState createState() => _HomeScreenNewState(light);
+  _HomeScreenNewState createState() => _HomeScreenNewState();
 }
 
 class _HomeScreenNewState extends State<HomeScreenNew> {
-  bool light;
-  _HomeScreenNewState(this.light);
-
   PageController _pageController;
   Future getPosts() async {
     var firestore = Firestore.instance;
@@ -130,7 +125,7 @@ class _HomeScreenNewState extends State<HomeScreenNew> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: (light==null) ? Colors.white : Colors.black,
+      backgroundColor: (light == null) ? Colors.white : Colors.black,
       appBar: buildAppBar(),
       drawer: CollapsingNavigationDrawer(),
       // Alternatif Bir Menu ve Search Buttonu Tasarımı
@@ -171,6 +166,22 @@ class _HomeScreenNewState extends State<HomeScreenNew> {
             ),
           ),
           SizedBox(height: 20.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 10.0,
+              ),
+              Text(
+                "Avmler",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.0,
+                    color: Colors.black),
+                textAlign: TextAlign.left,
+              ),
+            ],
+          ),
           //Content Scroll Widgetı
           //Anasayfanın altındaki horizontal yapı
           ContentScroll(),

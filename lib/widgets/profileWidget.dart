@@ -1,7 +1,6 @@
 import 'package:avmv005/Model/favorites.dart';
 import 'package:avmv005/Pages/course_info_screen.dart';
 import 'package:avmv005/Utils/database_helper.dart';
-import 'package:avmv005/scaffold.dart';
 import "package:flutter/material.dart";
 
 class ProfileWidget extends StatefulWidget {
@@ -29,27 +28,16 @@ class _ProfileWidgetState extends State<ProfileWidget> {
       setState(() {});
     }).catchError((hata) => print("hata:" + hata));
   }
-  
+
   @override
   Widget build(BuildContext context) {
+    Icon icon = new Icon(
+      Icons.delete,
+      color: Colors.red,
+      size: 20,
+    );
     return Column(
       children: <Widget>[
-        ListTile(
-          title: Text("Dark Theme"),
-          trailing: Switch(
-            value: light,
-            onChanged: (state){
-              setState(() {
-                light = state;
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ScaffoldOgesi(light : light),
-                    ),
-                );
-              });
-            },
-          ),
-        ),
         Container(
           height: 500,
           width: 300,
@@ -77,27 +65,41 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   ),
                 ),
                 child: Container(
-                    width: 100,
-                    height: 150,
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: NetworkImage(
-                                  allFavoritesList[index].imageUrl,
-                                )),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black87,
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    )),
+                  width: 100,
+                  height: 150,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(
+                                allFavoritesList[index].imageUrl,
+                              )),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black87,
+                            )
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          IconButton(
+                              icon: icon,
+                              onPressed: () => {
+                                    deleteImage(
+                                        allFavoritesList[index].imageUrl),
+                                    setState(() {}),
+                                  }),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
               );
             },
           ),
@@ -105,5 +107,15 @@ class _ProfileWidgetState extends State<ProfileWidget> {
       ],
     );
   }
-}
 
+  deleteImage(String imageUrl) {
+    try {
+      _databaseHelper.deleteFavorite(imageUrl);
+      //Icons.favorite;
+      print("Silindi.");
+      setState(() {});
+    } catch (e) {
+      print("Silme işlemi sırasında bir hata oluştu" + e.toString());
+    }
+  }
+}

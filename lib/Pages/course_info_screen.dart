@@ -139,7 +139,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
             dbh1.deleteFavorite(widget.imageUrl);
             icon = new Icon(
               Icons.favorite,
-              color: Colors.red,
+              color: Colors.white,
               size: 30,
             ); //Icons.favorite;
             print("Silindi.");

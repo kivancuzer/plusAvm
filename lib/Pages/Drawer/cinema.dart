@@ -11,7 +11,9 @@ class CinemaPage extends StatefulWidget {
 }
 
 class _CinemaPageState extends State<CinemaPage> {
-  String avm = "Kipa";
+  String avm = "Agora";
+
+  bool dark = false;
 
   Future getPosts() async {
     var firestore = Firestore.instance;
@@ -46,6 +48,7 @@ class _CinemaPageState extends State<CinemaPage> {
         avm = avmName;
       });
       getMovies(avm);
+      dark = true;
       print(avmName);
     }
 
@@ -84,14 +87,27 @@ class _CinemaPageState extends State<CinemaPage> {
                             onPressed: () => changeAvmName(snapshot
                                 .data[index].data['avm_name']
                                 .toString()),
-                            child: Text(
-                              snapshot.data[index].data['avm_name'].toString(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
-                                  color: Color(0xFFC9CBCE)),
-                              textAlign: TextAlign.left,
-                            ),
+                            child: snapshot.data[index].data['avm_name']
+                                        .toString() ==
+                                    avm
+                                ? Text(
+                                    snapshot.data[index].data['avm_name']
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.0,
+                                        color: Colors.black),
+                                    textAlign: TextAlign.left,
+                                  )
+                                : Text(
+                                    snapshot.data[index].data['avm_name']
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.0,
+                                        color: Color(0xFF77838F)),
+                                    textAlign: TextAlign.left,
+                                  ),
                           ),
                         );
                       },
@@ -271,7 +287,7 @@ class _CinemaPageState extends State<CinemaPage> {
                                     'Satın Al',
                                     style: TextStyle(color: Colors.white),
                                   ),
-                                  color: Color(0xFF504DE5),
+                                  color: Color(0xFF674DFF),
                                 ),
                               ],
                             ),

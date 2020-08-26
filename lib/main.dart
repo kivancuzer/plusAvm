@@ -10,7 +10,7 @@ void main() {
   setupLocator();
   runApp(
     MaterialApp(initialRoute: "/", routes: {
-      "/": (context) => ScaffoldOgesi(light: light),
+      "/": (context) => ScaffoldOgesi(),
     }),
   );
 }
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.red,
           accentColor: Color(0xFFFEF9EB),
         ),
-        home: ScaffoldOgesi(light: light),
+        home: ScaffoldOgesi(),
       ),
     );
   }

@@ -1,5 +1,4 @@
 import 'package:avmv005/Pages/course_info_screen.dart';
-import 'package:avmv005/Pages/design_course_app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -18,7 +17,6 @@ class DiscountsSlidesSeelAllWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double opacity1 = 0.0;
     return Column(
       children: <Widget>[
         Container(

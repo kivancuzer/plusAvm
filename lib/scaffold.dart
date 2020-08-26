@@ -11,23 +11,16 @@ import 'package:avmv005/widgets/location/location.dart';
 import 'commons/collapsing_navigation_drawer_widget.dart';
 
 class ScaffoldOgesi extends StatefulWidget {
-  bool light;
-  ScaffoldOgesi({Key key, this.light}) : super(key : key);
   @override
-  State<StatefulWidget> createState() => ScaffoldState(light);
+  State<StatefulWidget> createState() => ScaffoldState();
 }
 
 class ScaffoldState extends State<ScaffoldOgesi> {
-
-  bool light;
-  ScaffoldState(this.light);
-
   int aktifOge = 0;
   gecerliSayfa(int aktif) {
     switch (aktif) {
       case 0:
-        print(light);
-        return HomeScreenNew(light: light);
+        return HomeScreenNew();
         break;
 
       case 1:
