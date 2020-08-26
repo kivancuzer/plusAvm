@@ -109,7 +109,7 @@ class _SearchListExampleState extends State<SearchListExample> {
     });
 
     var firestoreOthersDiscounts = Firestore.instance;
-
+    //AVM_Discounts Koleksiyonunu çek
     firestoreOthersDiscounts
         .collection("AVM_Discounts")
         .getDocuments()
@@ -125,9 +125,79 @@ class _SearchListExampleState extends State<SearchListExample> {
     });
 
     var firestoreOthersAnasayfaUst = Firestore.instance;
-
-    firestoreOthersAnasayfaUst
+    //Anasayfa_Ust Koleksiyonunu çek
+    firestoreOthersDiscounts
         .collection("Anasayfa_Ust")
+        .getDocuments()
+        .then((querySnapshot) {
+      querySnapshot.documents.forEach((result) {
+        _listOthersAvmName.add(result.data["avm_name"]);
+        _listOthersBrandName.add(result.data["brand_name"]);
+        _listOthersImage.add(result.data["image"]);
+        _listOthersTitle.add(result.data["title"]);
+        _listOthersStars.add(result.data["stars"]);
+        _listOthersInfo.add(result.data["info"]);
+      });
+    });
+    //Avm+_Special_Discounts Koleksiyonunu çek
+    firestoreOthersDiscounts
+        .collection("Avm+_Special_Discounts")
+        .getDocuments()
+        .then((querySnapshot) {
+      querySnapshot.documents.forEach((result) {
+        _listOthersAvmName.add(result.data["avm_name"]);
+        _listOthersBrandName.add(result.data["brand_name"]);
+        _listOthersImage.add(result.data["image"]);
+        _listOthersTitle.add(result.data["title"]);
+        _listOthersStars.add(result.data["stars"]);
+        _listOthersInfo.add(result.data["info"]);
+      });
+    });
+    //Bilboards Koleksiyonunu çek
+    firestoreOthersDiscounts
+        .collection("Bilboards")
+        .getDocuments()
+        .then((querySnapshot) {
+      querySnapshot.documents.forEach((result) {
+        _listOthersAvmName.add(result.data["avm_name"]);
+        _listOthersBrandName.add(result.data["brand_name"]);
+        _listOthersImage.add(result.data["image"]);
+        _listOthersTitle.add(result.data["title"]);
+        _listOthersStars.add(result.data["stars"]);
+        _listOthersInfo.add(result.data["info"]);
+      });
+    });
+    //Events Koleksiyonunu çek
+    firestoreOthersDiscounts
+        .collection("Bilboards")
+        .getDocuments()
+        .then((querySnapshot) {
+      querySnapshot.documents.forEach((result) {
+        _listOthersAvmName.add(result.data["avm_name"]);
+        _listOthersBrandName.add(result.data["brand_name"]);
+        _listOthersImage.add(result.data["image"]);
+        _listOthersTitle.add(result.data["title"]);
+        _listOthersStars.add(result.data["stars"]);
+        _listOthersInfo.add(result.data["info"]);
+      });
+    });
+    //Gallery Koleksiyonunu çek
+    firestoreOthersDiscounts
+        .collection("Bilboards")
+        .getDocuments()
+        .then((querySnapshot) {
+      querySnapshot.documents.forEach((result) {
+        _listOthersAvmName.add(result.data["avm_name"]);
+        _listOthersBrandName.add(result.data["brand_name"]);
+        _listOthersImage.add(result.data["image"]);
+        _listOthersTitle.add(result.data["title"]);
+        _listOthersStars.add(result.data["stars"]);
+        _listOthersInfo.add(result.data["info"]);
+      });
+    });
+    //Trends Koleksiyonunu çek
+    firestoreOthersDiscounts
+        .collection("Bilboards")
         .getDocuments()
         .then((querySnapshot) {
       querySnapshot.documents.forEach((result) {
