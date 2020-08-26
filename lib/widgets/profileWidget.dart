@@ -88,12 +88,39 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          //allFavoritesList[index].imageUrl
                           IconButton(
                               icon: icon,
-                              onPressed: () => {
-                                    deleteImage(
-                                        allFavoritesList[index].imageUrl),
-                                  }),
+                              onPressed: () {
+                                try {
+                                  _databaseHelper.deleteFavorite(
+                                      allFavoritesList[index].imageUrl);
+
+                                  List<Favorites> basak;
+                                  basak = List<Favorites>();
+                                  _databaseHelper = DatabaseHelper();
+
+                                  _databaseHelper
+                                      .allFavorites()
+                                      .then((allFavoritesMapList) {
+                                    for (Map readFavoritesMap
+                                        in allFavoritesMapList) {
+                                      basak.add(
+                                          Favorites.fromMap(readFavoritesMap));
+                                    }
+                                    setState(() {
+                                      allFavoritesList = basak;
+                                    });
+                                  }).catchError(
+                                          (hata) => print("hata:" + hata));
+                                  //Icons.favorite;
+                                  print("Silindi.");
+                                } catch (e) {
+                                  print(
+                                      "Silme işlemi sırasında bir hata oluştu" +
+                                          e.toString());
+                                }
+                              }),
                         ],
                       )
                     ],
@@ -105,16 +132,5 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         ),
       ],
     );
-  }
-
-  deleteImage(String imageUrl) {
-    try {
-      _databaseHelper.deleteFavorite(imageUrl);
-      //Icons.favorite;
-      print("Silindi.");
-      setState(() {});
-    } catch (e) {
-      print("Silme işlemi sırasında bir hata oluştu" + e.toString());
-    }
   }
 }

@@ -124,7 +124,6 @@ class _SearchListExampleState extends State<SearchListExample> {
       });
     });
 
-    var firestoreOthersAnasayfaUst = Firestore.instance;
     //Anasayfa_Ust Koleksiyonunu çek
     firestoreOthersDiscounts
         .collection("Anasayfa_Ust")
