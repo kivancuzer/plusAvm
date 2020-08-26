@@ -1,10 +1,12 @@
 import 'package:avmv005/Model/favorites.dart';
 import 'package:avmv005/Model/user_model.dart';
-import 'package:avmv005/Pages/sign_in_page.dart';
+import 'package:avmv005/Pages/landing_page.dart';
 import 'package:avmv005/Repository/user_repository.dart';
 import 'package:avmv005/Utils/database_helper.dart';
+import 'package:avmv005/View_Model/user_model.dart';
 import 'package:avmv005/locator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'design_course_app_theme.dart';
 
 enum ButtonType { AddFavorite, DeleteFavorite }
@@ -90,8 +92,13 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
           Widget continueButton = FlatButton(
             child: Text("Oturum Aç"),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SignInPage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ChangeNotifierProvider(
+                            create: (context) => UserModel(),
+                            child: LandingPage(),
+                          )));
             },
           );
 
