@@ -19,11 +19,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     super.initState();
 
     allFavoritesList = List<Favorites>();
+    print("1:" + allFavoritesList.toString());
     _databaseHelper = DatabaseHelper();
 
     _databaseHelper.allFavorites().then((allFavoritesMapList) {
       for (Map readFavoritesMap in allFavoritesMapList) {
         allFavoritesList.add(Favorites.fromMap(readFavoritesMap));
+        print(allFavoritesList.toString());
       }
       setState(() {});
     }).catchError((hata) => print("hata:" + hata));
@@ -38,6 +40,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     );
     return Column(
       children: <Widget>[
+        SizedBox(height: 20.0),
         Container(
           height: 500,
           width: 300,

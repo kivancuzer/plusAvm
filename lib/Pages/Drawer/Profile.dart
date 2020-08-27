@@ -39,6 +39,7 @@ class ProfilePage extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: <Widget>[
+            SizedBox(height: 20.0),
             ProfileWidget(),
           ],
         ),

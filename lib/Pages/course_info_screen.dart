@@ -33,12 +33,16 @@ class CourseInfoScreen extends StatefulWidget {
 
 class _CourseInfoScreenState extends State<CourseInfoScreen>
     with TickerProviderStateMixin {
+  Color color = DesignCourseAppTheme.nearlyBlue;
+  DatabaseHelper _databaseHelper;
+  List<Favorites> allFavoritesList;
   DatabaseHelper dbh1 = DatabaseHelper();
   Icon icon = new Icon(
     Icons.favorite,
     color: DesignCourseAppTheme.nearlyWhite,
     size: 30,
   ); //Icons.favorite;
+
   var _buttonType = ButtonType.AddFavorite;
   final double infoHeight = 364.0;
   AnimationController animationController;
@@ -48,6 +52,31 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
   double opacity3 = 0.0;
   @override
   void initState() {
+    super.initState();
+
+    allFavoritesList = List<Favorites>();
+    _databaseHelper = DatabaseHelper();
+
+    _databaseHelper.allFavorites().then((allFavoritesMapList) {
+      for (Map readFavoritesMap in allFavoritesMapList) {
+        allFavoritesList.add(Favorites.fromMap(readFavoritesMap));
+        if (Favorites.fromMap(readFavoritesMap).imageUrl ==
+            widget.imageUrl.toString()) {
+          _buttonType = ButtonType.DeleteFavorite;
+          icon = new Icon(
+            Icons.favorite,
+            color: DesignCourseAppTheme.nearlyBlack,
+            size: 30,
+          );
+          color = DesignCourseAppTheme.nearlyWhite;
+          break;
+        } else {
+          print("false");
+        }
+      }
+      setState(() {});
+    }).catchError((hata) => print("hata:" + hata));
+
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
     animation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
@@ -135,9 +164,10 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
             print("Kaydedildi.");
             icon = new Icon(
               Icons.favorite,
-              color: Colors.blue,
+              color: DesignCourseAppTheme.nearlyBlack,
               size: 30,
-            ); //Icons.favorite;
+            );
+            color = DesignCourseAppTheme.nearlyWhite; //Icons.favorite;
           } catch (e) {
             print("Kaydederken bir hata oluştu" + e.toString());
           }
@@ -146,9 +176,11 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
             dbh1.deleteFavorite(widget.imageUrl);
             icon = new Icon(
               Icons.favorite,
-              color: Colors.white,
+              color: DesignCourseAppTheme.nearlyWhite,
               size: 30,
-            ); //Icons.favorite;
+            );
+            color = DesignCourseAppTheme.nearlyBlue;
+            //Icons.favorite;
             print("Silindi.");
           } catch (e) {
             print("Silme işlemi sırasında bir hata oluştu" + e.toString());
@@ -339,7 +371,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                 scale: CurvedAnimation(
                     parent: animationController, curve: Curves.fastOutSlowIn),
                 child: Card(
-                  color: DesignCourseAppTheme.nearlyBlue,
+                  color: color,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50.0)),
                   elevation: 10.0,
