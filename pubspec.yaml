@@ -20,15 +20,15 @@ dependencies:
   flutter:
     sdk: flutter
   characters: #checked
-  location:
-  google_maps_flutter: 
+  location:  #checked
+  google_maps_flutter:  #checked
   firebase_database: #checked
   cloud_firestore: #checked
   firebase_storage: #checked
   firebase_auth: #checked
   google_sign_in: #checked(sign_in_with_apple)
   get_it: #checked
-  provider: 
+  provider:  #checked
   flutter_facebook_login: #checked
   shared_preferences: #checked
   path_provider: #checked
